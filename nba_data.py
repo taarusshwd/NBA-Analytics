@@ -1,14 +1,26 @@
 from bs4 import BeautifulSoup
 import requests
 import csv
+import argparse
 
-url = "https://www.basketball-reference.com/leagues/NBA_2021_totals.html"
+parser = argparse.ArgumentParser()
+
+parser.add_argument(
+    '--year',
+    '-year',
+    default = 2021,
+    help = 'Enter the season year(2020-2021 season = 2021)'
+)
+
+args = parser.parse_args()
+year = args.year
+url = f"https://www.basketball-reference.com/leagues/NBA_{year}_totals.html"
 source = requests.get(url).text
 
 soup = BeautifulSoup(source, 'lxml')
 #print(soup.prettify())
 
-csv_file = open('nba_totals_2021.csv', 'w', encoding="utf-8")
+csv_file = open('nba_totals_2021_trial.csv', 'w', encoding="utf-8")
 
 csv_writer = csv.writer(csv_file)
 csv_writer.writerow(['Player', 'Position', 'Age', 'Games', 'GS', 'MP', 'FG', 'FGA', 'FG_PCT', 'FG3', 'FG3A', 'FG3_PCT', 'FG2', 'FG2A', 'FG2_PCT', 'EFG_PCT', 'FT', 'FTA', 'FT_PCT', 'ORB', 'DRB', 'TRB', 'AST', 'STL', 'BLK', 'TOV', 'PF', 'PTS'])
