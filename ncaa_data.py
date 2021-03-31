@@ -15,13 +15,38 @@ parser.add_argument(
 args = parser.parse_args()
 year = args.year
 
-#limit = (year==2021) if 26 else 25
+seasons = {
+    '2021' : 25,
+    '2020' : 24, 
+    '2019' : 25,
+    '2018' : 24,
+    '2017' : 24, 
+    '2016' : 24, 
+    '2015' : 24,
+    '2014' : 24,
+    '2013' : 23,
+    '2012' : 23,
+    '2011' : 23, 
+    '2010' : 23, 
+    '2009' : 23,
+    '2008' : 23, 
+    '2007' : 22, 
+    '2006' : 22, 
+    '2005' : 22, 
+    '2004' : 22, 
+    '2003' : 22, 
+    '2002' : 0,
+    '2001' : 0,
+    '2000' : 0
+}
 
-csv_file = open("ncaa_totals_2021.csv", 'w', encoding = 'utf-8')
+limit = seasons[year] + 1
+
+csv_file = open("ncaa_totals_2021_trial.csv", 'w', encoding = 'utf-8')
 csv_writer = csv.writer(csv_file)
 csv_writer.writerow(['No.', "Players", "Team", "GP", "MIN", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%", "FTM", "FTA", "FT%", "TOV", "PF", "ORB", "DRB", "REB", "AST", "STL", "BLK", "PTS"])
 
-for page in range(1, 26):
+for page in range(1, limit):
 
     url = f"https://basketball.realgm.com/ncaa/stats/{year}/Totals/Qualified/All/Season/All/points/desc/{page}"
 
